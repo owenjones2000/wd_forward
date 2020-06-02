@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Command;
 
+use Carbon\Carbon;
 use Hyperf\Command\Command as HyperfCommand;
 use Hyperf\Command\Annotation\Command;
 use Psr\Container\ContainerInterface;
@@ -15,6 +16,7 @@ use GuzzleHttp\Client;
 use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Exception\RequestException;
 use Symfony\Component\Console\Helper\Dumper;
+use Hyperf\DbConnection\Db;
 
 /**
  * @Command
@@ -66,7 +68,7 @@ class ImpressionCommand extends HyperfCommand
                 ],
             ]);
 
-        $impressionLists = ['impression', 'impression2'];
+        $impressionLists = ['impression_list_queue'];
         //消费消息
         $n =0;
         while (true) {
@@ -86,15 +88,22 @@ class ImpressionCommand extends HyperfCommand
                     //         $this->logger->error($msg);
                     //     }
                     // );
-                    // $response = $promise->wait();
+                    $response = $promise->wait();
                     // $body = $response->getBody();
                     // $stringBody = (string) $body;
+                    // var_dump($stringBody);
                     // $headers = $response->getHeaders();
                     // var_dump(\Hyperf\Utils\Coroutine::inCoroutine());
                     $n++;
                     $this->logger->info($n);
                 }
             } catch (\Exception $e) {
+                Db::table('log_impressions')->insert([
+                    'list' => $msg[0],
+                    'url' => $msg[1],
+                    'exception' => $e,
+                    'created_at' => Carbon::now(),
+                ]);
                 $this->logger->error($e);
             }
         }
