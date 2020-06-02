@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Command;
 
+use App\Log;
+use App\Redis;
 use Carbon\Carbon;
 use Hyperf\Command\Command as HyperfCommand;
 use Hyperf\Command\Annotation\Command;
@@ -48,8 +50,10 @@ class ImpressionCommand extends HyperfCommand
 
     public function handle()
     {
-        $redis = $this->container->get(RedisFactory::class)->get('default');
-        $this->logger = $this->container->get(LoggerFactory::class)->get('log', 'default');
+        // $redis = $this->container->get(RedisFactory::class)->get('default');
+        $redis = Redis::get('default');
+        // $this->logger = $this->container->get(LoggerFactory::class)->get('log', 'default');
+        $this->logger = Log::get('log', 'default');
         //guzzle协程客户端
         // $options = [];
         // $this->client = $this->container->get(ClientFactory::class)->create($options);
