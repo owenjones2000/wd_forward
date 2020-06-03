@@ -19,6 +19,7 @@ return [
                 // 'stream' => BASE_PATH . '/runtime/logs/hyperf.log',
                 'filename' => BASE_PATH . '/runtime/logs/hyperf.log',
                 'level' => Monolog\Logger::DEBUG,
+                'maxFiles'=> 5,
             ],
         ],
         'formatter' => [
