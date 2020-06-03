@@ -51,7 +51,7 @@ class ImpressionCommand extends HyperfCommand
     public function handle()
     {
         // $redis = $this->container->get(RedisFactory::class)->get('default');
-        $redis = Redis::get('default');
+        $this->redis = Redis::get('default');
         // $this->logger = $this->container->get(LoggerFactory::class)->get('log', 'default');
         $this->logger = Log::get('log', 'default');
         //guzzle协程客户端
@@ -59,8 +59,8 @@ class ImpressionCommand extends HyperfCommand
         // $this->client = $this->container->get(ClientFactory::class)->create($options);
         //guzzle协程客户端连接池
         $options = [
-            'min_connections' => 10,
-            'max_connections' => 50,
+            'min_connections' => 30,
+            'max_connections' => 100,
             'wait_timeout' => 3.0,
             'max_idle_time' => 60,
         ];
@@ -77,7 +77,7 @@ class ImpressionCommand extends HyperfCommand
         $n =0;
         while (true) {
             try {
-                $msg = $redis->brpop(
+                $msg = $this->redis->brpop(
                     $impressionLists,
                     0
                 );
@@ -99,8 +99,8 @@ class ImpressionCommand extends HyperfCommand
                     // $headers = $response->getHeaders();
                     // var_dump(\Hyperf\Utils\Coroutine::inCoroutine());
                     $n++;
-                    // $this->logger->info($n.'list'.$msg[0].'url'.$msg[1]);
-                    $this->logger->info($n);
+                    $this->logger->info($n.PHP_EOL.'list:  '.$msg[0]. PHP_EOL . 'url:  '.$msg[1]);
+                    // $this->logger->info($n);
                 }
             } catch (\Exception $e) {
                 Db::table('log_impressions')->insert([
