@@ -99,7 +99,8 @@ class ImpressionCommand extends HyperfCommand
                     // $headers = $response->getHeaders();
                     // var_dump(\Hyperf\Utils\Coroutine::inCoroutine());
                     $n++;
-                    $this->logger->info($n.PHP_EOL.'list:  '.$msg[0]. PHP_EOL . 'url:  '.$msg[1]);
+                    // $this->logger->info($n.PHP_EOL.'list:  '.$msg[0]. PHP_EOL . 'url:  '.$msg[1]);
+                    $this->logger->info($n.PHP_EOL.'list:  '.$msg[0]. PHP_EOL);
                     // $this->logger->info($n);
                 }
             } catch (\Exception $e) {
