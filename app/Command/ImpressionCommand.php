@@ -81,7 +81,7 @@ class ImpressionCommand extends HyperfCommand
                     $impressionLists,
                     0
                 );
-                if ($msg) { //业务处理
+                if ($msg[1]) { //业务处理
                     $promise = $this->client->getAsync($msg[1]);
                     // $promise->then(
                     //     function (ResponseInterface $res) {
