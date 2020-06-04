@@ -100,7 +100,7 @@ class ImpressionCommand extends HyperfCommand
                     // var_dump(\Hyperf\Utils\Coroutine::inCoroutine());
                     $n++;
                     // $this->logger->info($n.PHP_EOL.'list:  '.$msg[0]. PHP_EOL . 'url:  '.$msg[1]);
-                    $this->logger->info($n.PHP_EOL.cli_get_process_title());
+                    $this->logger->info($n.PHP_EOL.'process:'.cli_get_process_title());
                 }
             } catch (\Exception $e) {
                 Db::table('log_impressions')->insert([
