@@ -64,8 +64,11 @@ class ImpressionCommand extends HyperfCommand
             'wait_timeout' => 3.0,
             'max_idle_time' => 60,
         ];
+        $middlewares = [
+            'retry' => [RetryMiddleware::class, [2, 60]],
+        ];
         $factory = new HandlerStackFactory();
-        $stack = $factory->create($options);
+        $stack = $factory->create($options, $middlewares);
         $this->client = make(Client::class, [
                 'config' => [
                     'handler' => $stack,
