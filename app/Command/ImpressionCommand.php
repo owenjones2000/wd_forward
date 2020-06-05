@@ -60,7 +60,7 @@ class ImpressionCommand extends HyperfCommand
         // $this->client = $this->container->get(ClientFactory::class)->create($options);
         //guzzle协程客户端连接池
         $options = [
-            'min_connections' => 30,
+            'min_connections' => 10,
             'max_connections' => 100,
             'wait_timeout' => 3.0,
             'max_idle_time' => 60,

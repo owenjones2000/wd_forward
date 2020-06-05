@@ -22,7 +22,7 @@ return [
             'seeds' => [],
         ],
         'pool' => [
-            'min_connections' => 50,
+            'min_connections' => 10,
             'max_connections' => 100,
             'connect_timeout' => 10.0,
             'wait_timeout' => 3.0,
