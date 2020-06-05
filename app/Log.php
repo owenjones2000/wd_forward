@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App;
 
-use Hyperf\Logger\Logger;
 use Hyperf\Utils\ApplicationContext;
 
 class Log
