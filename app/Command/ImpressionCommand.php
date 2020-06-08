@@ -17,7 +17,6 @@ use Hyperf\Guzzle\HandlerStackFactory;
 use GuzzleHttp\Client;
 use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Exception\RequestException;
-use Symfony\Component\Console\Helper\Dumper;
 use Hyperf\DbConnection\Db;
 use Hyperf\Guzzle\RetryMiddleware;
 
