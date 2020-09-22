@@ -104,7 +104,7 @@ class ImpressionCommand extends HyperfCommand
                     // $n++;
                     // $this->logger->info($n.PHP_EOL.'list:  '.$msg[0]. PHP_EOL . 'url:  '.$msg[1]);
                     // $this->logger->info($n);
-                    if (strpos($msg[1], 'app') !== false)
+                    if (strpos($msg[1], 'app.appsflyer') !== false)
                     {
                         Db::table('log_impressions')->insert([
                             'list' => $msg[0],
