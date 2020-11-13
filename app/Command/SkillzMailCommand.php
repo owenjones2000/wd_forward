@@ -108,24 +108,6 @@ class SkillzMailCommand extends HyperfCommand
                 }
             }
    
-       
-                // $promise->then(
-                //     function (ResponseInterface $res) {
-                //         echo $res->getStatusCode() . "\n";
-                //     },
-                //     function (RequestException $e) use ($msg){
-                //         $this->logger->error($e);
-                //         $this->logger->error($msg);
-                //     }
-                // );
-                // $body = $response->getBody();
-                // $stringBody = (string) $body;
-                // var_dump($stringBody);
-                // $headers = $response->getHeaders();
-                // var_dump(\Hyperf\Utils\Coroutine::inCoroutine());
-                // $n++;
-                // $this->logger->info($n.PHP_EOL.'list:  '.$msg[0]. PHP_EOL . 'url:  '.$msg[1]);
-                // $this->logger->info($n);
         } catch (\Exception $e) {
             $this->logger->error($e);
         }
