@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Command;
 
+use App\HttpClient;
 use App\Log;
 use App\Model\SkillzMail;
 use App\Redis;
@@ -58,22 +59,8 @@ class SkillzMailCommand extends HyperfCommand
         $this->redis = Redis::get('default');
         $this->logger = Log::get('log', 'default');
         //guzzle协程客户端连接池
-        $options = [
-            'min_connections' => 10,
-            'max_connections' => 100,
-            'wait_timeout' => 3.0,
-            'max_idle_time' => 60,
-        ];
-        $middlewares = [
-            'retry' => [RetryMiddleware::class, [2, 60]],
-        ];
-        $factory = new HandlerStackFactory();
-        $stack = $factory->create($options, $middlewares);
-        $this->client = make(Client::class, [
-            'config' => [
-                'handler' => $stack,
-            ],
-        ]);
+     
+        $this->client = HttpClient::get();
 
         //消费消息
         $n = 0;
