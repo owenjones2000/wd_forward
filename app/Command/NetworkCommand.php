@@ -55,20 +55,33 @@ class NetworkCommand extends HyperfCommand
 
         $networkLists = ['network_list_queue'];
         //消费消息
+        $insData = [];
         while (true) {
             try {
                 $msg = $this->redis->brpop(
                     $networkLists,
                     0
                 );
+                var_dump($msg);
                 if ($msg[1]) { //业务处理
                     $data = json_decode($msg[1], true);
-                    $table_name = 'z_networks_'.Carbon::now('UTC')->format('Ymd');
-                    // var_dump($table_name);
+                    $insData[] = $data;
+                    $table_name = 'z_networks_' . Carbon::now('UTC')->format('Ymd');
                     $intRes = Db::table($table_name)->insert($data);
+
                     // var_dump($intRes);
                     // $this->logger->info(PHP_EOL.'list:  '.$msg[0]. PHP_EOL . 'data:  '.$msg[1]);
                 }
+                // if (count($insData) >= 100) {
+                //     # code...
+                //     $table_name = 'z_networks_' . Carbon::now('UTC')->format('Ymd');
+                //     $intRes = Db::table($table_name)->insert($insData);
+                //     if ($intRes){
+                //         $insData = [];
+                //     }
+                // }
+                
+                
             } catch (\Exception $e) {
                 
                 $this->logger->error($e);
