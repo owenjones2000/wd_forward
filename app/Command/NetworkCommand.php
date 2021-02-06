@@ -66,20 +66,20 @@ class NetworkCommand extends HyperfCommand
                 if ($msg[1]) { //业务处理
                     $data = json_decode($msg[1], true);
                     $insData[] = $data;
-                    $table_name = 'z_networks_' . Carbon::now('UTC')->format('Ymd');
-                    $intRes = Db::table($table_name)->insert($data);
+                    // $table_name = 'z_networks_' . Carbon::now('UTC')->format('Ymd');
+                    // $intRes = Db::table($table_name)->insert($data);
 
                     // var_dump($intRes);
                     // $this->logger->info(PHP_EOL.'list:  '.$msg[0]. PHP_EOL . 'data:  '.$msg[1]);
                 }
-                // if (count($insData) >= 100) {
-                //     # code...
-                //     $table_name = 'z_networks_' . Carbon::now('UTC')->format('Ymd');
-                //     $intRes = Db::table($table_name)->insert($insData);
-                //     if ($intRes){
-                //         $insData = [];
-                //     }
-                // }
+                if (count($insData) >= 100) {
+                    # code...
+                    $table_name = 'z_networks_' . Carbon::now('UTC')->format('Ymd');
+                    $intRes = Db::table($table_name)->insert($insData);
+                    if ($intRes){
+                        $insData = [];
+                    }
+                }
                 
                 
             } catch (\Exception $e) {
