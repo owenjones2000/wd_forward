@@ -63,6 +63,7 @@ class NetworkCommand extends HyperfCommand
                     0
                 );
                 var_dump($msg);
+                $this->logger->info($msg);
                 if ($msg[1]) { //业务处理
                     $data = json_decode($msg[1], true);
                     $insData[] = $data;
