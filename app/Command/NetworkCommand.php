@@ -82,7 +82,6 @@ class NetworkCommand extends HyperfCommand
                     }
                 }
                 
-                
             } catch (\Exception $e) {
                 
                 $this->logger->error($e);
