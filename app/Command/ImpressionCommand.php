@@ -85,6 +85,7 @@ class ImpressionCommand extends HyperfCommand
                     0
                 );
                 if ($msg[1]) { //业务处理
+                    $n++;
                     $promise = $this->client->getAsync($msg[1]);
                     // $promise->then(
                     //     function (ResponseInterface $res) {
@@ -101,18 +102,21 @@ class ImpressionCommand extends HyperfCommand
                     // var_dump($stringBody);
                     // $headers = $response->getHeaders();
                     // var_dump(\Hyperf\Utils\Coroutine::inCoroutine());
-                    // $n++;
+                    
                     // $this->logger->info($n.PHP_EOL.'list:  '.$msg[0]. PHP_EOL . 'url:  '.$msg[1]);
-                    // $this->logger->info($n);
-                    if (strpos($msg[1], 'app.appsflyer') !== false)
-                    {
-                        Db::table('log_impressions')->insert([
-                            'list' => $msg[0],
-                            'url' => $msg[1],
-                            'exception' => '',
-                            'created_at' => Carbon::now(),
-                        ]);
+                    $this->logger->info($n);
+                    if ($n > 10000) {
+                        $n = 0;
                     }
+                    // if (strpos($msg[1], 'app.appsflyer') !== false)
+                    // {
+                    //     Db::table('log_impressions')->insert([
+                    //         'list' => $msg[0],
+                    //         'url' => $msg[1],
+                    //         'exception' => '',
+                    //         'created_at' => Carbon::now(),
+                    //     ]);
+                    // }
                 }
             } catch (\Exception $e) {
                 Db::table('log_impressions')->insert([
